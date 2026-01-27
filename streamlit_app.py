@@ -558,18 +558,151 @@ if not st.session_state.processing:
             st.rerun()
 
 else:
-    # Processing View (Inputs Hidden)
+    # Processing View (Inputs Hidden) - PREMIUM LOADING ANIMATION
     st.markdown("""
-        <div style='text-align: center; margin: 2rem 0 1.5rem 0;'>
-            <div style='display: inline-block; position: relative;'>
-                <div style='width: 60px; height: 60px; border: 4px solid rgba(99, 102, 241, 0.2); border-top: 4px solid #6366f1; border-radius: 50%; animation: spin 1s linear infinite;'></div>
+        <div style='text-align: center; margin: 3rem 0 2rem 0; position: relative;'>
+            <!-- Outer pulsing ring -->
+            <div class='pulse-ring'></div>
+            
+            <!-- Middle spinning ring -->
+            <div class='spinner-ring'></div>
+            
+            <!-- Inner glowing core -->
+            <div class='core-glow'></div>
+            
+            <!-- Animated dots -->
+            <div class='loading-dots'>
+                <span class='dot'></span>
+                <span class='dot'></span>
+                <span class='dot'></span>
             </div>
-            <p style='color: rgba(255,255,255,0.6); font-size: 0.85rem; margin-top: 1rem; font-weight: 600;'>Processing your request...</p>
+            
+            <p style='color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-top: 8rem; font-weight: 600; letter-spacing: 0.05em;'>
+                Processing your request<span class='dot-animate'>.</span><span class='dot-animate'>.</span><span class='dot-animate'>.</span>
+            </p>
         </div>
+        
         <style>
+            @keyframes pulse {
+                0%, 100% { 
+                    transform: scale(1); 
+                    opacity: 0.6; 
+                }
+                50% { 
+                    transform: scale(1.15); 
+                    opacity: 0.3; 
+                }
+            }
+            
             @keyframes spin {
                 0% { transform: rotate(0deg); }
                 100% { transform: rotate(360deg); }
+            }
+            
+            @keyframes glow {
+                0%, 100% { 
+                    box-shadow: 0 0 20px rgba(99, 102, 241, 0.5), 
+                                0 0 40px rgba(168, 85, 247, 0.3),
+                                inset 0 0 20px rgba(99, 102, 241, 0.3);
+                }
+                50% { 
+                    box-shadow: 0 0 30px rgba(99, 102, 241, 0.8), 
+                                0 0 60px rgba(168, 85, 247, 0.5),
+                                inset 0 0 30px rgba(99, 102, 241, 0.5);
+                }
+            }
+            
+            @keyframes bounce {
+                0%, 80%, 100% { transform: translateY(0); opacity: 0.5; }
+                40% { transform: translateY(-10px); opacity: 1; }
+            }
+            
+            @keyframes dotFade {
+                0%, 100% { opacity: 0; }
+                50% { opacity: 1; }
+            }
+            
+            .pulse-ring {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 120px;
+                height: 120px;
+                border: 3px solid rgba(99, 102, 241, 0.3);
+                border-radius: 50%;
+                animation: pulse 2s ease-in-out infinite;
+            }
+            
+            .spinner-ring {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 80px;
+                height: 80px;
+                border: 4px solid transparent;
+                border-top: 4px solid #6366f1;
+                border-right: 4px solid #8b5cf6;
+                border-radius: 50%;
+                animation: spin 1.2s linear infinite;
+            }
+            
+            .core-glow {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 40px;
+                height: 40px;
+                background: linear-gradient(135deg, #6366f1, #8b5cf6);
+                border-radius: 50%;
+                animation: glow 2s ease-in-out infinite;
+            }
+            
+            .loading-dots {
+                position: absolute;
+                top: calc(50% + 70px);
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                gap: 8px;
+            }
+            
+            .loading-dots .dot {
+                width: 8px;
+                height: 8px;
+                background: linear-gradient(135deg, #6366f1, #8b5cf6);
+                border-radius: 50%;
+                animation: bounce 1.4s infinite ease-in-out;
+            }
+            
+            .loading-dots .dot:nth-child(1) {
+                animation-delay: 0s;
+            }
+            
+            .loading-dots .dot:nth-child(2) {
+                animation-delay: 0.2s;
+            }
+            
+            .loading-dots .dot:nth-child(3) {
+                animation-delay: 0.4s;
+            }
+            
+            .dot-animate {
+                animation: dotFade 1.5s infinite;
+            }
+            
+            .dot-animate:nth-child(1) {
+                animation-delay: 0s;
+            }
+            
+            .dot-animate:nth-child(2) {
+                animation-delay: 0.3s;
+            }
+            
+            .dot-animate:nth-child(3) {
+                animation-delay: 0.6s;
             }
         </style>
     """, unsafe_allow_html=True)
