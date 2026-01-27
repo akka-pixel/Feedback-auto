@@ -37,34 +37,37 @@ st.markdown("""
         font-family: 'Outfit', sans-serif;
         color: var(--text);
         background-color: var(--bg-deep);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
     
-    /* Background - optimized for mobile (less heavy gradients) */
+    /* Background - Mobile Optimized */
     .stApp {
         background-color: var(--bg-deep);
         background-image: 
             radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
             radial-gradient(circle at 100% 100%, rgba(168, 85, 247, 0.08) 0%, transparent 40%);
         background-attachment: fixed;
+        min-height: 100vh;
     }
     
-    /* Main Content Container - Mobile Friendly */
+    /* Main Content Container - Mobile First */
     .main .block-container {
         background: transparent;
-        padding: 2rem 1rem;
+        padding: 1.5rem 1rem;
         max-width: 100%;
-        margin-top: 0;
+        margin: 0 auto;
     }
     
     /* Desktop override */
-    @media (min-width: 768px) {
+    @media (min-width: 640px) {
         .main .block-container {
             background: rgba(18, 18, 24, 0.4);
             border: 1px solid var(--glass-border);
             border-radius: 32px;
-            padding: 3rem;
+            padding: 2.5rem 2rem;
             max-width: 480px;
-            margin-top: 2rem;
+            margin: 2rem auto;
             box-shadow: 0 30px 60px -15px rgba(0,0,0,0.5);
         }
     }
@@ -73,130 +76,157 @@ st.markdown("""
     #MainMenu, footer, header {visibility: hidden;}
     .stDeployButton {display: none;}
     
-    /* Typography Styling */
+    /* Typography - Mobile Optimized */
     h1 {
         background: linear-gradient(to right, #fff, #a5b4fc);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         font-weight: 800;
         text-align: center;
-        margin-bottom: 0px !important;
-        font-size: 3rem !important;
+        margin-bottom: 0.25rem !important;
+        font-size: 2.5rem !important;
         letter-spacing: -0.03em;
         filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.3));
+        line-height: 1.1;
+    }
+    
+    @media (min-width: 640px) {
+        h1 {
+            font-size: 3.5rem !important;
+        }
     }
     
     .subtitle {
         text-align: center;
         color: rgba(255, 255, 255, 0.5);
         font-weight: 600;
-        font-size: 0.8rem;
+        font-size: 0.7rem;
         letter-spacing: 0.2em;
         text-transform: uppercase;
-        margin-bottom: 2.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    @media (min-width: 640px) {
+        .subtitle {
+            font-size: 0.85rem;
+            margin-bottom: 2.5rem;
+        }
     }
 
-    /* BUNKER STYLE INPUTS */
-    /* Targeting Streamlit's inner input elements */
+    /* MOBILE-FRIENDLY INPUTS */
     .stTextInput > div > div > input,
     .stSelectbox > div > div > div[class*="singleValue"] {
         background-color: #111 !important;
-        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        border: 1.5px solid rgba(255, 255, 255, 0.15) !important;
         color: white !important;
-        border-radius: 18px !important;
-        padding: 18px 18px 18px 20px !important; /* Increased padding */
-        font-size: 16px !important; /* Larger font for mobile */
+        border-radius: 16px !important;
+        padding: 16px 18px !important;
+        font-size: 16px !important; /* Prevents zoom on iOS */
         font-weight: 500 !important;
         transition: all 0.3s ease !important;
         height: auto !important;
+        min-height: 52px !important; /* Better touch target */
         box-shadow: none !important;
     }
 
     .stSelectbox > div > div {
         background-color: #111 !important;
-        border: 1px solid rgba(255, 255, 255, 0.15) !important;
-        border-radius: 18px !important;
+        border: 1.5px solid rgba(255, 255, 255, 0.15) !important;
+        border-radius: 16px !important;
         color: white !important;
-        padding: 5px !important;
-        height: auto !important;
+        min-height: 52px !important;
     }
 
-    /* Focus States */
+    /* Focus States - Mobile Friendly */
     .stTextInput > div > div > input:focus,
     .stSelectbox > div > div:focus-within {
         background-color: #181818 !important;
         border-color: var(--primary) !important;
-        box-shadow: 0 0 0 1px var(--primary), 0 0 30px rgba(99, 102, 241, 0.2) !important;
+        border-width: 2px !important;
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
         transform: none !important;
     }
 
-    /* Labels */
+    /* Labels - Mobile Optimized */
     .stTextInput label, .stSelectbox label {
-        color: rgba(255, 255, 255, 0.6) !important;
-        font-size: 0.8rem !important;
+        color: rgba(255, 255, 255, 0.65) !important;
+        font-size: 0.75rem !important;
         font-weight: 700 !important;
         text-transform: uppercase;
-        letter-spacing: 0.1em;
-        margin-bottom: 0.75rem !important;
-        margin-left: 0.5rem !important;
+        letter-spacing: 0.08em;
+        margin-bottom: 0.5rem !important;
+        margin-left: 0.25rem !important;
     }
 
-    /* Neon Glow Button - Mobile Optimized */
+    /* Button - Mobile Optimized with Large Touch Target */
     .stButton > button {
         width: 100%;
         background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
         color: white !important;
         font-weight: 700 !important;
-        padding: 1.2rem !important;
-        border-radius: 20px !important;
+        padding: 1rem !important;
+        min-height: 56px !important; /* Minimum touch target */
+        border-radius: 16px !important;
         border: none !important;
         transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
-        font-size: 1.1rem !important;
+        font-size: 1rem !important;
         letter-spacing: 0.05em !important;
         position: relative;
         overflow: hidden;
-        margin-top: 1.5rem !important;
+        margin-top: 1.25rem !important;
         box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.4) !important;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
     }
     
-    .stButton > button:hover {
-        transform: scale(1.02) !important;
-        box-shadow: 0 15px 35px -5px rgba(99, 102, 241, 0.5) !important;
+    @media (min-width: 640px) {
+        .stButton > button {
+            padding: 1.2rem !important;
+            font-size: 1.1rem !important;
+        }
     }
     
     .stButton > button:active {
-        transform: scale(0.96) !important;
+        transform: scale(0.97) !important;
     }
 
-    /* Premium Progress Bar */
+    /* Progress Bar - Mobile Friendly */
     .stProgress > div > div {
         background: linear-gradient(90deg, var(--primary), var(--secondary));
         border-radius: 10px;
-        height: 6px !important;
+        height: 8px !important;
     }
     
     .stProgress > div {
         background: rgba(255, 255, 255, 0.08);
         border-radius: 10px;
-        height: 6px !important;
+        height: 8px !important;
     }
     
-    /* Remove default streamlit margins */
+    /* Remove default margins */
     .stTextInput {margin-bottom: 1rem;}
     .stSelectbox {margin-bottom: 1rem;}
 
-    /* Animated Status Card */
+    /* Status Card - Mobile Optimized */
     .status-card {
         background: rgba(255, 255, 255, 0.03);
         border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 24px;
-        padding: 1.25rem;
-        margin: 1.5rem 0;
+        border-radius: 20px;
+        padding: 1rem;
+        margin: 1.25rem 0;
         display: flex;
         align-items: center;
-        gap: 1rem;
-        animation: slideIn 0.4s var(--bg-deep);
+        gap: 0.875rem;
+        animation: slideIn 0.4s ease-out;
         backdrop-filter: blur(10px);
+    }
+    
+    @media (min-width: 640px) {
+        .status-card {
+            padding: 1.25rem;
+            border-radius: 24px;
+            gap: 1rem;
+        }
     }
     
     @keyframes slideIn {
@@ -205,25 +235,33 @@ st.markdown("""
     }
     
     .status-icon-box {
-        width: 42px;
-        height: 42px;
+        width: 40px;
+        height: 40px;
         background: rgba(99, 102, 241, 0.15);
-        border-radius: 14px;
+        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
         color: #a5b4fc;
-        font-size: 1.3rem;
+        font-size: 1.25rem;
         flex-shrink: 0;
+    }
+    
+    @media (min-width: 640px) {
+        .status-icon-box {
+            width: 44px;
+            height: 44px;
+            font-size: 1.35rem;
+        }
     }
     
     .status-content {
         flex: 1;
-        min-width: 0; /* Text truncation fix */
+        min-width: 0;
     }
     
     .status-title {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         color: rgba(255, 255, 255, 0.5);
         text-transform: uppercase;
         letter-spacing: 0.1em;
@@ -231,42 +269,78 @@ st.markdown("""
         margin-bottom: 0.25rem;
     }
     
+    @media (min-width: 640px) {
+        .status-title {
+            font-size: 0.75rem;
+        }
+    }
+    
     .status-desc {
         color: white;
         font-weight: 600;
-        font-size: 1rem;
+        font-size: 0.95rem;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
+    
+    @media (min-width: 640px) {
+        .status-desc {
+            font-size: 1rem;
+        }
+    }
 
-    /* Expander Styling */
+    /* Expander - Mobile Friendly */
     .streamlit-expanderHeader {
         background: rgba(255, 255, 255, 0.03) !important;
         border: 1px solid rgba(255, 255, 255, 0.05) !important;
-        border-radius: 16px !important;
+        border-radius: 14px !important;
         color: rgba(255, 255, 255, 0.8) !important;
-        font-size: 0.9rem !important;
-        padding: 1rem !important;
+        font-size: 0.85rem !important;
+        padding: 0.875rem !important;
+        min-height: 48px !important;
+    }
+    
+    @media (min-width: 640px) {
+        .streamlit-expanderHeader {
+            border-radius: 16px !important;
+            font-size: 0.9rem !important;
+            padding: 1rem !important;
+        }
     }
     
     .streamlit-expanderContent {
         background: transparent !important;
         border: none !important;
-        padding-top: 1rem !important;
+        padding-top: 0.875rem !important;
     }
     
-    /* Footer/Info styling */
+    /* Footer */
     .info-footer {
         text-align: center;
-        margin-top: 4rem;
-        padding-top: 2rem;
+        margin-top: 3rem;
+        padding-top: 1.5rem;
         border-top: 1px solid rgba(255, 255, 255, 0.08);
         color: rgba(255, 255, 255, 0.25);
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         font-weight: 600;
         letter-spacing: 0.05em;
         text-transform: uppercase;
+    }
+    
+    @media (min-width: 640px) {
+        .info-footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            font-size: 0.75rem;
+        }
+    }
+    
+    /* Error/Success Messages - Mobile Friendly */
+    .stError, .stSuccess {
+        border-radius: 14px !important;
+        padding: 0.875rem 1rem !important;
+        font-size: 0.9rem !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -485,18 +559,35 @@ if not st.session_state.processing:
 
 else:
     # Processing View (Inputs Hidden)
+    st.markdown("""
+        <div style='text-align: center; margin: 2rem 0 1.5rem 0;'>
+            <div style='display: inline-block; position: relative;'>
+                <div style='width: 60px; height: 60px; border: 4px solid rgba(99, 102, 241, 0.2); border-top: 4px solid #6366f1; border-radius: 50%; animation: spin 1s linear infinite;'></div>
+            </div>
+            <p style='color: rgba(255,255,255,0.6); font-size: 0.85rem; margin-top: 1rem; font-weight: 600;'>Processing your request...</p>
+        </div>
+        <style>
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        </style>
+    """, unsafe_allow_html=True)
+    
     progress_bar = st.progress(0)
     status_placeholder = st.empty()
     
     # Run the automation
-    with st.spinner("Establishing Secure Connection..."):
-        result = run_automation(st.session_state.feedback_idx, st.session_state.rollno, st.session_state.password, progress_bar, status_placeholder)
+    result = run_automation(st.session_state.feedback_idx, st.session_state.rollno, st.session_state.password, progress_bar, status_placeholder)
     
     # Show back button after completion
-    st.markdown("<div style='height: 20px'></div>", unsafe_allow_html=True)
-    if st.button("⬅️ Return to Home"):
-        st.session_state.processing = False
-        st.rerun()
+    st.markdown("<div style='height: 30px'></div>", unsafe_allow_html=True)
+    
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        if st.button("🏠 Back to Home", use_container_width=True):
+            st.session_state.processing = False
+            st.rerun()
     
     if result == "Success":
         st.balloons()
