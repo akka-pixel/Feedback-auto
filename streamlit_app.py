@@ -17,253 +17,227 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Advanced CSS Architecture
+# PREMIUM CSS - MOBILE OPTIMIZED
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
     
-    :root {
-        --primary: #6366f1;
-        --secondary: #a855f7;
-        --accent: #ec4899;
-        --bg-deep: #000000;
-        --glass-border: rgba(255, 255, 255, 0.15);
-        --text: #ffffff;
-        --card-bg: #121212;
-    }
-
-    /* Global Reset & Typography */
-    html, body, [class*="css"] {
-        font-family: 'Outfit', sans-serif;
-        color: var(--text);
-        background-color: var(--bg-deep);
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
+    * { font-family: 'Outfit', sans-serif; }
     
-    /* Background - Mobile Optimized */
+    /* Background */
     .stApp {
-        background-color: var(--bg-deep);
-        background-image: 
-            radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 100% 100%, rgba(168, 85, 247, 0.08) 0%, transparent 40%);
-        background-attachment: fixed;
-        min-height: 100vh;
+        background: #000000;
+        background-image: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
     }
     
-    /* Main Content Container - Mobile First */
+    /* Container */
     .main .block-container {
-        background: transparent;
-        padding: 1.5rem 1rem;
-        max-width: 100%;
-        margin: 0 auto;
+        padding: 1.5rem 1rem !important;
+        max-width: 100% !important;
     }
     
-    /* Desktop override */
     @media (min-width: 640px) {
         .main .block-container {
             background: rgba(18, 18, 24, 0.4);
-            border: 1px solid var(--glass-border);
-            border-radius: 32px;
-            padding: 2.5rem 2rem;
-            max-width: 480px;
-            margin: 2rem auto;
-            box-shadow: 0 30px 60px -15px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 2.5rem !important;
+            max-width: 480px !important;
+            margin: 2rem auto !important;
         }
     }
-
-    /* Hide Streamlit Elements */
-    #MainMenu, footer, header {visibility: hidden;}
-    .stDeployButton {display: none;}
     
-    /* Typography - Clean & Modern */
+    /* Hide Streamlit UI */
+    #MainMenu, footer, header { visibility: hidden; }
+    .stDeployButton { display: none !important; }
+    
+    /* Title */
     h1 {
         background: linear-gradient(to right, #fff, #a5b4fc);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         font-weight: 800;
         text-align: center;
-        margin-bottom: 0.25rem !important;
+        margin: 0 0 0.5rem 0 !important;
         font-size: 2.5rem !important;
-        letter-spacing: -0.03em;
-        filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.3));
-        line-height: 1.1;
-    }
-    
-    @media (min-width: 640px) {
-        h1 {
-            font-size: 3.5rem !important;
-        }
+        line-height: 1 !important;
     }
     
     .subtitle {
         text-align: center;
         color: rgba(255, 255, 255, 0.5);
+        font-size: 0.75rem;
         font-weight: 600;
-        font-size: 0.7rem;
         letter-spacing: 0.2em;
         text-transform: uppercase;
-        margin-bottom: 2.5rem;
+        margin-bottom: 2rem;
     }
-
-    /* -----------------------------------------------------------------
-       PREMIUM INPUT STYLING - FIXED BORDERS & SPACING
-       ----------------------------------------------------------------- */
     
-    /* Input Container Reset - Removes default streamlit styles */
-    .stTextInput > div[data-testid="stTextInput"] {
-        background-color: transparent !important;
-        border: none !important;
+    /* INPUTS - CLEAN & SIMPLE */
+    .stTextInput > div > div, .stSelectbox > div > div {
+        background: transparent !important;
     }
-
-    /* The actual input field */
+    
     .stTextInput input {
-        background-color: #0F0F11 !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        background: rgba(255, 255, 255, 0.03) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        border-radius: 12px !important;
+        padding: 14px 16px !important;
         color: white !important;
-        border-radius: 16px !important;
-        padding: 16px 20px !important;
-        font-size: 16px !important; /* Prevents iOS zoom */
-        font-weight: 500 !important;
-        line-height: 1.5 !important;
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        height: auto !important;
-        min-height: 54px !important;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
-    }
-
-    /* Select Box Styling */
-    .stSelectbox > div > div {
-        background-color: #0F0F11 !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        border-radius: 16px !important;
-        color: white !important;
-        min-height: 54px !important;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+        font-size: 15px !important;
+        height: 50px !important;
+        transition: all 0.2s ease !important;
     }
     
-    /* Fix for Selectbox text */
-    .stSelectbox div[class*="singleValue"] {
-        color: white !important;
-        font-weight: 500 !important;
-    }
-
-    /* Focus States - Clean Glow */
-    .stTextInput input:focus,
-    .stSelectbox > div > div:focus-within {
-        background-color: #141418 !important;
+    .stTextInput input:focus {
+        background: rgba(255, 255, 255, 0.05) !important;
         border-color: #6366f1 !important;
-        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2), 0 10px 15px -3px rgba(0, 0, 0, 0.2) !important;
-        transform: translateY(-1px);
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
     }
-
-    /* Labels - Precise Positioning */
+    
+    .stSelectbox [data-baseweb="select"] {
+        background: rgba(255, 255, 255, 0.03) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        border-radius: 12px !important;
+        min-height: 50px !important;
+    }
+    
+    .stSelectbox [data-baseweb="select"]:focus-within {
+        border-color: #6366f1 !important;
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
+    }
+    
     .stTextInput label, .stSelectbox label {
         color: rgba(255, 255, 255, 0.6) !important;
         font-size: 0.75rem !important;
         font-weight: 700 !important;
         text-transform: uppercase;
-        letter-spacing: 0.08em !important;
+        letter-spacing: 0.05em !important;
         margin-bottom: 0.5rem !important;
-        margin-left: 0.25rem !important;
     }
     
-    /* Remove streamlit's default helper text spacing issues */
-    .stTextInput p, .stSelectbox p {
-        font-size: 0.75rem !important;
-    }
-
-    /* -----------------------------------------------------------------
-       BUTTON STYLING
-       ----------------------------------------------------------------- */
-    .stButton > button {
-        width: 100%;
+    /* BUTTON */
+    .stButton button {
+        width: 100% !important;
         background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
         color: white !important;
-        font-weight: 700 !important;
-        padding: 1rem !important;
-        min-height: 56px !important;
-        border-radius: 16px !important;
         border: none !important;
-        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
-        font-size: 1rem !important;
-        letter-spacing: 0.05em !important;
+        border-radius: 12px !important;
+        padding: 14px !important;
+        font-size: 0.95rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.03em !important;
         margin-top: 1.5rem !important;
-        box-shadow: 0 10px 20px -10px rgba(99, 102, 241, 0.5) !important;
-        cursor: pointer;
+        transition: all 0.2s ease !important;
+        box-shadow: 0 8px 16px -8px rgba(99, 102, 241, 0.5) !important;
     }
     
-    .stButton > button:active {
-        transform: scale(0.96) !important;
-        box-shadow: 0 5px 10px -5px rgba(99, 102, 241, 0.4) !important;
+    .stButton button:active {
+        transform: scale(0.98) !important;
     }
     
-    /* Mobile-specific adjustments */
-    @media (max-width: 640px) {
-        .stTextInput { margin-bottom: 1.25rem; }
-        .stSelectbox { margin-bottom: 1.25rem; }
-        .stButton > button { width: 100%; }
-    }
-
-    /* Progress Bar */
-    .stProgress > div > div {
-        background: linear-gradient(90deg, #6366f1, #a855f7);
-        border-radius: 10px;
-        height: 6px !important;
-    }
-    
-    .stProgress > div {
-        background: rgba(255, 255, 255, 0.08);
-        border-radius: 10px;
-        height: 6px !important;
-    }
-
-    /* Expander - Clean Look */
+    /* EXPANDER */
     .streamlit-expanderHeader {
         background: rgba(255, 255, 255, 0.03) !important;
         border: 1px solid rgba(255, 255, 255, 0.08) !important;
-        border-radius: 14px !important;
-        color: rgba(255, 255, 255, 0.7) !important;
+        border-radius: 12px !important;
+        padding: 12px 16px !important;
         font-size: 0.85rem !important;
-        padding: 1rem !important;
-        transition: all 0.2s ease !important;
-    }
-    
-    .streamlit-expanderHeader:hover {
-        background: rgba(255, 255, 255, 0.05) !important;
-        border-color: rgba(255, 255, 255, 0.15) !important;
+        color: rgba(255, 255, 255, 0.7) !important;
     }
     
     .streamlit-expanderContent {
+        padding: 12px 0 !important;
         background: transparent !important;
-        border: none !important;
-        padding: 1rem 0.5rem 0.5rem !important;
+    }
+    
+    /* PROGRESS BAR */
+    .stProgress > div > div {
+        background: linear-gradient(90deg, #6366f1, #a855f7) !important;
+        height: 6px !important;
+        border-radius: 10px !important;
+    }
+    
+    .stProgress > div {
+        background: rgba(255, 255, 255, 0.08) !important;
+        border-radius: 10px !important;
+    }
+    
+    /* Loading Spinner */
+    .loading-container {
+        text-align: center;
+        padding: 3rem 0 2rem;
+    }
+    
+    .spinner {
+        margin: 0 auto;
+        width: 60px;
+        height: 60px;
+        position: relative;
+    }
+    
+    .spinner-ring {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: 3px solid rgba(99, 102, 241, 0.2);
+        border-top-color: #6366f1;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+    
+    .loading-text {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.85rem;
+        margin-top: 1.5rem;
+        font-weight: 500;
+    }
+    
+    /* Status Card */
+    .status-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-left: 3px solid;
+        border-radius: 12px;
+        padding: 12px 16px;
+        margin: 12px 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    
+    .status-icon {
+        font-size: 1.25rem;
+        flex-shrink: 0;
+    }
+    
+    .status-text {
+        flex: 1;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+    
+    .status-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        opacity: 0.6;
+        margin-bottom: 2px;
     }
     
     /* Footer */
-    .info-footer {
+    .footer {
         text-align: center;
         margin-top: 3rem;
         padding-top: 2rem;
         border-top: 1px solid rgba(255, 255, 255, 0.08);
-        color: rgba(255, 255, 255, 0.2);
         font-size: 0.7rem;
-        font-weight: 600;
+        color: rgba(255, 255, 255, 0.2);
         letter-spacing: 0.1em;
-        text-transform: uppercase;
-    }
-    
-    /* Alerts */
-    .stError, .stSuccess {
-        border-radius: 14px !important;
-        padding: 1rem !important;
-        border: none !important;
-        background: rgba(255, 255, 255, 0.03) !important;
-        border-left: 3px solid #ef4444 !important;
-    }
-    
-    .stSuccess {
-        border-left-color: #10b981 !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -283,20 +257,18 @@ def create_driver():
     service = Service("/usr/bin/chromedriver")
     return webdriver.Chrome(service=service, options=options)
 
-def render_status(text, subtext="Processing...", icon="⚡", color="#6366f1"):
+def render_status(text, subtext="Processing", icon="⚡", color="#6366f1"):
     return f"""
-        <div class="status-card" style="border-left: 3px solid {color}">
-            <div class="status-icon-box" style="background: {color}20; color: {color}">
-                {icon}
-            </div>
-            <div class="status-content">
-                <div class="status-title">{subtext}</div>
-                <div class="status-desc">{text}</div>
+        <div class="status-card" style="border-left-color: {color}">
+            <div class="status-icon" style="color: {color}">{icon}</div>
+            <div style="flex: 1">
+                <div class="status-label">{subtext}</div>
+                <div class="status-text">{text}</div>
             </div>
         </div>
     """
 
-# Session State Handling
+# Session State
 if 'processing' not in st.session_state:
     st.session_state.processing = False
 
@@ -312,7 +284,6 @@ def intermediate_form(browser, progress_bar, status_placeholder):
         courses = browser.find_elements(By.CLASS_NAME, "intermediate-body")
         course_names = browser.find_elements(By.CSS_SELECTOR, "h6.course")
         
-        # Update progress
         progress_bar.progress(30 + int(60 * (i / num_courses)))
         status_placeholder.markdown(
             render_status(course_names[i].text, "Completing Survey", "📝", "#a855f7"), 
@@ -321,7 +292,6 @@ def intermediate_form(browser, progress_bar, status_placeholder):
         
         browser.execute_script("arguments[0].scrollIntoView(); arguments[0].click();", courses[i])
         
-        # Form filling logic
         questions_text = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "div.bottom-0"))).text
         questions = int(questions_text.split()[-1])
         clicks = 0
@@ -391,7 +361,6 @@ def run_automation(index, rollno, password, progress_bar, status_placeholder):
         progress_bar.progress(25)
         status_placeholder.markdown(render_status("Authenticating User", "Security", "🔐", "#f59e0b"), unsafe_allow_html=True)
         
-        # Login Logic
         wait.until(EC.presence_of_element_located((By.ID, "rollno"))).send_keys(rollno)
         browser.find_element(By.ID, "password").send_keys(password)
         
@@ -428,34 +397,26 @@ def run_automation(index, rollno, password, progress_bar, status_placeholder):
 
     except Exception as e:
         error_msg = str(e)
-        # Clean up error message for display
-        if "Message:" in error_msg:
-            # Handle selenium generic errors if any leak through
-            pass 
         status_placeholder.markdown(render_status(error_msg, "Process Failed", "❌", "#ef4444"), unsafe_allow_html=True)
         return "Error"
     finally:
         if browser:
             browser.quit()
 
-# Logic to toggle views
+# ----- UI LOGIC -----
 if not st.session_state.processing:
-    # Input Container
-    with st.container():
-        st.markdown("<div style='padding: 0 0.5rem;'>", unsafe_allow_html=True) # Mobile padding
-        rollno = st.text_input("Roll Number", placeholder="e.g. 25U201", help="College Roll Number")
-        password = st.text_input("Password", type="password", placeholder="•••••••", help="eCampus Password")
-        
-        feedback_type = st.selectbox(
-            "Automation Target",
-            options=[("End Semester Feedback", 0), ("Intermediate Feedback", 1)],
-            format_func=lambda x: x[0]
-        )
-        st.markdown("</div>", unsafe_allow_html=True)
+    # Input Form
+    rollno = st.text_input("Roll Number", placeholder="e.g. 25U201", help="College Roll Number")
+    password = st.text_input("Password", type="password", placeholder="•••••••", help="eCampus Password")
+    
+    feedback_type = st.selectbox(
+        "Automation Target",
+        options=[("End Semester Feedback", 0), ("Intermediate Feedback", 1)],
+        format_func=lambda x: x[0]
+    )
 
     # Terms Section
-    st.markdown("<div style='height: 10px'></div>", unsafe_allow_html=True)
-    with st.expander("Terms of Use", expanded=False):
+    with st.expander("📋 Terms of Use"):
         st.markdown("""
             <div style='font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.6;'>
                 <p><strong>Educational Purpose Only</strong><br>
@@ -468,8 +429,7 @@ if not st.session_state.processing:
             </div>
         """, unsafe_allow_html=True)
 
-    # Action Button
-    st.markdown("<div style='height: 10px'></div>", unsafe_allow_html=True)
+    # Submit Button
     if st.button("INITIATE SEQUENCE"):
         if not rollno or not password:
             st.error("⚠️ Authentication credentials required")
@@ -481,163 +441,22 @@ if not st.session_state.processing:
             st.rerun()
 
 else:
-    # Processing View (Inputs Hidden) - PREMIUM LOADING ANIMATION
+    # Processing View - CLEAN LOADING
     st.markdown("""
-        <div style='text-align: center; margin: 3rem 0 2rem 0; position: relative;'>
-            <!-- Outer pulsing ring -->
-            <div class='pulse-ring'></div>
-            
-            <!-- Middle spinning ring -->
-            <div class='spinner-ring'></div>
-            
-            <!-- Inner glowing core -->
-            <div class='core-glow'></div>
-            
-            <!-- Animated dots -->
-            <div class='loading-dots'>
-                <span class='dot'></span>
-                <span class='dot'></span>
-                <span class='dot'></span>
+        <div class="loading-container">
+            <div class="spinner">
+                <div class="spinner-ring"></div>
             </div>
-            
-            <p style='color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-top: 8rem; font-weight: 600; letter-spacing: 0.05em;'>
-                Processing your request<span class='dot-animate'>.</span><span class='dot-animate'>.</span><span class='dot-animate'>.</span>
-            </p>
+            <div class="loading-text">Processing your request...</div>
         </div>
-        
-        <style>
-            @keyframes pulse {
-                0%, 100% { 
-                    transform: scale(1); 
-                    opacity: 0.6; 
-                }
-                50% { 
-                    transform: scale(1.15); 
-                    opacity: 0.3; 
-                }
-            }
-            
-            @keyframes spin {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
-            }
-            
-            @keyframes glow {
-                0%, 100% { 
-                    box-shadow: 0 0 20px rgba(99, 102, 241, 0.5), 
-                                0 0 40px rgba(168, 85, 247, 0.3),
-                                inset 0 0 20px rgba(99, 102, 241, 0.3);
-                }
-                50% { 
-                    box-shadow: 0 0 30px rgba(99, 102, 241, 0.8), 
-                                0 0 60px rgba(168, 85, 247, 0.5),
-                                inset 0 0 30px rgba(99, 102, 241, 0.5);
-                }
-            }
-            
-            @keyframes bounce {
-                0%, 80%, 100% { transform: translateY(0); opacity: 0.5; }
-                40% { transform: translateY(-10px); opacity: 1; }
-            }
-            
-            @keyframes dotFade {
-                0%, 100% { opacity: 0; }
-                50% { opacity: 1; }
-            }
-            
-            .pulse-ring {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 120px;
-                height: 120px;
-                border: 3px solid rgba(99, 102, 241, 0.3);
-                border-radius: 50%;
-                animation: pulse 2s ease-in-out infinite;
-            }
-            
-            .spinner-ring {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 80px;
-                height: 80px;
-                border: 4px solid transparent;
-                border-top: 4px solid #6366f1;
-                border-right: 4px solid #8b5cf6;
-                border-radius: 50%;
-                animation: spin 1.2s linear infinite;
-            }
-            
-            .core-glow {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 40px;
-                height: 40px;
-                background: linear-gradient(135deg, #6366f1, #8b5cf6);
-                border-radius: 50%;
-                animation: glow 2s ease-in-out infinite;
-            }
-            
-            .loading-dots {
-                position: absolute;
-                top: calc(50% + 70px);
-                left: 50%;
-                transform: translateX(-50%);
-                display: flex;
-                gap: 8px;
-            }
-            
-            .loading-dots .dot {
-                width: 8px;
-                height: 8px;
-                background: linear-gradient(135deg, #6366f1, #8b5cf6);
-                border-radius: 50%;
-                animation: bounce 1.4s infinite ease-in-out;
-            }
-            
-            .loading-dots .dot:nth-child(1) {
-                animation-delay: 0s;
-            }
-            
-            .loading-dots .dot:nth-child(2) {
-                animation-delay: 0.2s;
-            }
-            
-            .loading-dots .dot:nth-child(3) {
-                animation-delay: 0.4s;
-            }
-            
-            .dot-animate {
-                animation: dotFade 1.5s infinite;
-            }
-            
-            .dot-animate:nth-child(1) {
-                animation-delay: 0s;
-            }
-            
-            .dot-animate:nth-child(2) {
-                animation-delay: 0.3s;
-            }
-            
-            .dot-animate:nth-child(3) {
-                animation-delay: 0.6s;
-            }
-        </style>
     """, unsafe_allow_html=True)
     
     progress_bar = st.progress(0)
     status_placeholder = st.empty()
     
-    # Run the automation
     result = run_automation(st.session_state.feedback_idx, st.session_state.rollno, st.session_state.password, progress_bar, status_placeholder)
     
-    # Show back button after completion
-    st.markdown("<div style='height: 30px'></div>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
@@ -649,5 +468,4 @@ else:
         st.balloons()
 
 # Footer
-st.markdown("<div class='info-footer'>Secure • Private • Educational</div>", unsafe_allow_html=True)
-
+st.markdown("<div class='footer'>SECURE • PRIVATE • EDUCATIONAL</div>", unsafe_allow_html=True)
