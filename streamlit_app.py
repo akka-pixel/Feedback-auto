@@ -327,9 +327,16 @@ def render_status(text, subtext="Processing...", icon="⚡", color="#6366f1"):
         </div>
     """
 
+# Session State Handling
+if 'processing' not in st.session_state:
+    st.session_state.processing = False
+
 def intermediate_form(browser, progress_bar, status_placeholder):
     wait = WebDriverWait(browser, 10)
-    courses = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, "intermediate-body")))
+    try:
+        courses = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, "intermediate-body")))
+    except TimeoutException:
+         raise Exception("No active intermediate feedback courses found.")
     
     num_courses = len(courses)
     for i in range(num_courses):
@@ -366,7 +373,10 @@ def intermediate_form(browser, progress_bar, status_placeholder):
 
 def endsem_form(browser, progress_bar, status_placeholder):
     wait = WebDriverWait(browser, 15)
-    staff_list = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, "div.staff-item")))
+    try:
+        staff_list = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, "div.staff-item")))
+    except TimeoutException:
+        raise Exception("Staff list not found. Feedback might be closed or already completed.")
     
     num_staff = len(staff_list)
     for i in range(num_staff):
@@ -415,18 +425,28 @@ def run_automation(index, rollno, password, progress_bar, status_placeholder):
         # Login Logic
         wait.until(EC.presence_of_element_located((By.ID, "rollno"))).send_keys(rollno)
         browser.find_element(By.ID, "password").send_keys(password)
-        browser.execute_script("arguments[0].click();", browser.find_element(By.ID, "terms"))
-        browser.execute_script("arguments[0].click();", browser.find_element(By.ID, "btnLogin"))
+        
+        try:
+            browser.execute_script("arguments[0].click();", browser.find_element(By.ID, "terms"))
+            browser.execute_script("arguments[0].click();", browser.find_element(By.ID, "btnLogin"))
+        except Exception:
+             raise Exception("Login elements changed or unavailable.")
 
         progress_bar.progress(35)
         status_placeholder.markdown(render_status("Accessing Module", "Navigation", "🧭", "#ec4899"), unsafe_allow_html=True)
         
-        feedback_card = wait.until(EC.element_to_be_clickable((By.XPATH, f"//h5[text()='Feedback']")))
-        browser.execute_script("arguments[0].scrollIntoView(); arguments[0].click();", feedback_card)
+        try:
+            feedback_card = wait.until(EC.element_to_be_clickable((By.XPATH, f"//h5[text()='Feedback']")))
+            browser.execute_script("arguments[0].scrollIntoView(); arguments[0].click();", feedback_card)
+        except TimeoutException:
+             raise Exception("Login failed. Check Credentials or Portal Status.")
 
-        wait.until(EC.presence_of_element_located((By.CLASS_NAME, "card-body")))
-        feedbacks = browser.find_elements(By.CLASS_NAME, "card-body")
-        browser.execute_script("arguments[0].click();", feedbacks[index])
+        try:
+            wait.until(EC.presence_of_element_located((By.CLASS_NAME, "card-body")))
+            feedbacks = browser.find_elements(By.CLASS_NAME, "card-body")
+            browser.execute_script("arguments[0].click();", feedbacks[index])
+        except Exception:
+            raise Exception("Feedback section not responsive.")
         
         if index == 0:
             endsem_form(browser, progress_bar, status_placeholder)
@@ -435,29 +455,79 @@ def run_automation(index, rollno, password, progress_bar, status_placeholder):
             
         progress_bar.progress(100)
         status_placeholder.markdown(render_status("Feedback Submitted Successfully", "Complete", "🎉", "#10b981"), unsafe_allow_html=True)
-        return True
+        return "Success"
 
     except Exception as e:
-        status_placeholder.markdown(render_status(f"{str(e)[:100]}...", "Error Encountered", "❌", "#ef4444"), unsafe_allow_html=True)
-        return False
+        error_msg = str(e)
+        # Clean up error message for display
+        if "Message:" in error_msg:
+            # Handle selenium generic errors if any leak through
+            pass 
+        status_placeholder.markdown(render_status(error_msg, "Process Failed", "❌", "#ef4444"), unsafe_allow_html=True)
+        return "Error"
     finally:
         if browser:
             browser.quit()
 
-# Action Button
-st.markdown("<div style='height: 10px'></div>", unsafe_allow_html=True)
+# Logic to toggle views
+if not st.session_state.processing:
+    # Input Container
+    with st.container():
+        st.markdown("<div style='padding: 0 0.5rem;'>", unsafe_allow_html=True) # Mobile padding
+        rollno = st.text_input("Roll Number", placeholder="e.g. 23Z309", help="College Roll Number")
+        password = st.text_input("Password", type="password", placeholder="•••••••", help="eCampus Password")
+        
+        feedback_type = st.selectbox(
+            "Automation Target",
+            options=[("End Semester Feedback", 0), ("Intermediate Feedback", 1)],
+            format_func=lambda x: x[0]
+        )
+        st.markdown("</div>", unsafe_allow_html=True)
 
-if st.button("INITIATE SEQUENCE"):
-    if not rollno or not password:
-        st.error("⚠️ Authentication credentials required")
-    else:
-        progress_bar = st.progress(0)
-        status_placeholder = st.empty()
-        
-        success = run_automation(feedback_type[1], rollno, password, progress_bar, status_placeholder)
-        
-        if success:
-            st.balloons()
+    # Terms Section
+    st.markdown("<div style='height: 10px'></div>", unsafe_allow_html=True)
+    with st.expander("Terms of Use", expanded=False):
+        st.markdown("""
+            <div style='font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.6;'>
+                <p><strong>Educational Purpose Only</strong><br>
+                This system helps understand browser automation. By using it, you agree to:</p>
+                <ul style="padding-left: 1.2rem; margin-top: 5px;">
+                    <li>Use responsibly and ethically</li>
+                    <li>Not store personal credentials</li>
+                    <li>Accept full responsibility for usage</li>
+                </ul>
+            </div>
+        """, unsafe_allow_html=True)
+
+    # Action Button
+    st.markdown("<div style='height: 10px'></div>", unsafe_allow_html=True)
+    if st.button("INITIATE SEQUENCE"):
+        if not rollno or not password:
+            st.error("⚠️ Authentication credentials required")
+        else:
+            st.session_state.processing = True
+            st.session_state.rollno = rollno
+            st.session_state.password = password
+            st.session_state.feedback_idx = feedback_type[1]
+            st.rerun()
+
+else:
+    # Processing View (Inputs Hidden)
+    progress_bar = st.progress(0)
+    status_placeholder = st.empty()
+    
+    # Run the automation
+    with st.spinner("Establishing Secure Connection..."):
+        result = run_automation(st.session_state.feedback_idx, st.session_state.rollno, st.session_state.password, progress_bar, status_placeholder)
+    
+    # Show back button after completion
+    st.markdown("<div style='height: 20px'></div>", unsafe_allow_html=True)
+    if st.button("⬅️ Return to Home"):
+        st.session_state.processing = False
+        st.rerun()
+    
+    if result == "Success":
+        st.balloons()
 
 # Footer
 st.markdown("<div class='info-footer'>Secure • Private • Educational</div>", unsafe_allow_html=True)
