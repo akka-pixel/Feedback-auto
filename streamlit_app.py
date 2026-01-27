@@ -275,34 +275,6 @@ st.markdown("""
 st.markdown("<h1>Feedback.</h1>", unsafe_allow_html=True)
 st.markdown("<p class='subtitle'>Automated Feedback Entry</p>", unsafe_allow_html=True)
 
-# Mobile-Optimized Input Container
-with st.container():
-    st.markdown("<div style='padding: 0 0.5rem;'>", unsafe_allow_html=True) # Mobile padding
-    rollno = st.text_input("Roll Number", placeholder="e.g. 23Z309", help="College Roll Number")
-    password = st.text_input("Password", type="password", placeholder="•••••••", help="eCampus Password")
-    
-    feedback_type = st.selectbox(
-        "Automation Target",
-        options=[("End Semester Feedback", 0), ("Intermediate Feedback", 1)],
-        format_func=lambda x: x[0]
-    )
-    st.markdown("</div>", unsafe_allow_html=True)
-
-# Terms Section
-st.markdown("<div style='height: 10px'></div>", unsafe_allow_html=True)
-with st.expander("Terms of Use", expanded=False):
-    st.markdown("""
-        <div style='font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.6;'>
-            <p><strong>Educational Purpose Only</strong><br>
-            This system helps understand browser automation. By using it, you agree to:</p>
-            <ul style="padding-left: 1.2rem; margin-top: 5px;">
-                <li>Use responsibly and ethically</li>
-                <li>Not store personal credentials</li>
-                <li>Accept full responsibility for usage</li>
-            </ul>
-        </div>
-    """, unsafe_allow_html=True)
-
 def create_driver():
     options = Options()
     options.add_argument("--headless=new")
@@ -474,7 +446,7 @@ if not st.session_state.processing:
     # Input Container
     with st.container():
         st.markdown("<div style='padding: 0 0.5rem;'>", unsafe_allow_html=True) # Mobile padding
-        rollno = st.text_input("Roll Number", placeholder="e.g. 23Z309", help="College Roll Number")
+        rollno = st.text_input("Roll Number", placeholder="e.g. 25U201", help="College Roll Number")
         password = st.text_input("Password", type="password", placeholder="•••••••", help="eCampus Password")
         
         feedback_type = st.selectbox(
