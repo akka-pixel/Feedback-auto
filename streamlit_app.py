@@ -76,7 +76,7 @@ st.markdown("""
     #MainMenu, footer, header {visibility: hidden;}
     .stDeployButton {display: none;}
     
-    /* Typography - Mobile Optimized */
+    /* Typography - Clean & Modern */
     h1 {
         background: linear-gradient(to right, #fff, #a5b4fc);
         -webkit-background-clip: text;
@@ -103,244 +103,167 @@ st.markdown("""
         font-size: 0.7rem;
         letter-spacing: 0.2em;
         text-transform: uppercase;
-        margin-bottom: 2rem;
+        margin-bottom: 2.5rem;
+    }
+
+    /* -----------------------------------------------------------------
+       PREMIUM INPUT STYLING - FIXED BORDERS & SPACING
+       ----------------------------------------------------------------- */
+    
+    /* Input Container Reset - Removes default streamlit styles */
+    .stTextInput > div[data-testid="stTextInput"] {
+        background-color: transparent !important;
+        border: none !important;
+    }
+
+    /* The actual input field */
+    .stTextInput input {
+        background-color: #0F0F11 !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        color: white !important;
+        border-radius: 16px !important;
+        padding: 16px 20px !important;
+        font-size: 16px !important; /* Prevents iOS zoom */
+        font-weight: 500 !important;
+        line-height: 1.5 !important;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        height: auto !important;
+        min-height: 54px !important;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+    }
+
+    /* Select Box Styling */
+    .stSelectbox > div > div {
+        background-color: #0F0F11 !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 16px !important;
+        color: white !important;
+        min-height: 54px !important;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
     }
     
-    @media (min-width: 640px) {
-        .subtitle {
-            font-size: 0.85rem;
-            margin-bottom: 2.5rem;
-        }
-    }
-
-    /* MOBILE-FRIENDLY INPUTS */
-    .stTextInput > div > div > input,
-    .stSelectbox > div > div > div[class*="singleValue"] {
-        background-color: #111 !important;
-        border: 1.5px solid rgba(255, 255, 255, 0.15) !important;
+    /* Fix for Selectbox text */
+    .stSelectbox div[class*="singleValue"] {
         color: white !important;
-        border-radius: 16px !important;
-        padding: 16px 18px !important;
-        font-size: 16px !important; /* Prevents zoom on iOS */
         font-weight: 500 !important;
-        transition: all 0.3s ease !important;
-        height: auto !important;
-        min-height: 52px !important; /* Better touch target */
-        box-shadow: none !important;
     }
 
-    .stSelectbox > div > div {
-        background-color: #111 !important;
-        border: 1.5px solid rgba(255, 255, 255, 0.15) !important;
-        border-radius: 16px !important;
-        color: white !important;
-        min-height: 52px !important;
-    }
-
-    /* Focus States - Mobile Friendly */
-    .stTextInput > div > div > input:focus,
+    /* Focus States - Clean Glow */
+    .stTextInput input:focus,
     .stSelectbox > div > div:focus-within {
-        background-color: #181818 !important;
-        border-color: var(--primary) !important;
-        border-width: 2px !important;
-        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
-        transform: none !important;
+        background-color: #141418 !important;
+        border-color: #6366f1 !important;
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2), 0 10px 15px -3px rgba(0, 0, 0, 0.2) !important;
+        transform: translateY(-1px);
     }
 
-    /* Labels - Mobile Optimized */
+    /* Labels - Precise Positioning */
     .stTextInput label, .stSelectbox label {
-        color: rgba(255, 255, 255, 0.65) !important;
+        color: rgba(255, 255, 255, 0.6) !important;
         font-size: 0.75rem !important;
         font-weight: 700 !important;
         text-transform: uppercase;
-        letter-spacing: 0.08em;
+        letter-spacing: 0.08em !important;
         margin-bottom: 0.5rem !important;
         margin-left: 0.25rem !important;
     }
+    
+    /* Remove streamlit's default helper text spacing issues */
+    .stTextInput p, .stSelectbox p {
+        font-size: 0.75rem !important;
+    }
 
-    /* Button - Mobile Optimized with Large Touch Target */
+    /* -----------------------------------------------------------------
+       BUTTON STYLING
+       ----------------------------------------------------------------- */
     .stButton > button {
         width: 100%;
         background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
         color: white !important;
         font-weight: 700 !important;
         padding: 1rem !important;
-        min-height: 56px !important; /* Minimum touch target */
+        min-height: 56px !important;
         border-radius: 16px !important;
         border: none !important;
-        transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
         font-size: 1rem !important;
         letter-spacing: 0.05em !important;
-        position: relative;
-        overflow: hidden;
-        margin-top: 1.25rem !important;
-        box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.4) !important;
+        margin-top: 1.5rem !important;
+        box-shadow: 0 10px 20px -10px rgba(99, 102, 241, 0.5) !important;
         cursor: pointer;
-        -webkit-tap-highlight-color: transparent;
-    }
-    
-    @media (min-width: 640px) {
-        .stButton > button {
-            padding: 1.2rem !important;
-            font-size: 1.1rem !important;
-        }
     }
     
     .stButton > button:active {
-        transform: scale(0.97) !important;
+        transform: scale(0.96) !important;
+        box-shadow: 0 5px 10px -5px rgba(99, 102, 241, 0.4) !important;
+    }
+    
+    /* Mobile-specific adjustments */
+    @media (max-width: 640px) {
+        .stTextInput { margin-bottom: 1.25rem; }
+        .stSelectbox { margin-bottom: 1.25rem; }
+        .stButton > button { width: 100%; }
     }
 
-    /* Progress Bar - Mobile Friendly */
+    /* Progress Bar */
     .stProgress > div > div {
-        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        background: linear-gradient(90deg, #6366f1, #a855f7);
         border-radius: 10px;
-        height: 8px !important;
+        height: 6px !important;
     }
     
     .stProgress > div {
         background: rgba(255, 255, 255, 0.08);
         border-radius: 10px;
-        height: 8px !important;
-    }
-    
-    /* Remove default margins */
-    .stTextInput {margin-bottom: 1rem;}
-    .stSelectbox {margin-bottom: 1rem;}
-
-    /* Status Card - Mobile Optimized */
-    .status-card {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 20px;
-        padding: 1rem;
-        margin: 1.25rem 0;
-        display: flex;
-        align-items: center;
-        gap: 0.875rem;
-        animation: slideIn 0.4s ease-out;
-        backdrop-filter: blur(10px);
-    }
-    
-    @media (min-width: 640px) {
-        .status-card {
-            padding: 1.25rem;
-            border-radius: 24px;
-            gap: 1rem;
-        }
-    }
-    
-    @keyframes slideIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    
-    .status-icon-box {
-        width: 40px;
-        height: 40px;
-        background: rgba(99, 102, 241, 0.15);
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #a5b4fc;
-        font-size: 1.25rem;
-        flex-shrink: 0;
-    }
-    
-    @media (min-width: 640px) {
-        .status-icon-box {
-            width: 44px;
-            height: 44px;
-            font-size: 1.35rem;
-        }
-    }
-    
-    .status-content {
-        flex: 1;
-        min-width: 0;
-    }
-    
-    .status-title {
-        font-size: 0.7rem;
-        color: rgba(255, 255, 255, 0.5);
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        font-weight: 700;
-        margin-bottom: 0.25rem;
-    }
-    
-    @media (min-width: 640px) {
-        .status-title {
-            font-size: 0.75rem;
-        }
-    }
-    
-    .status-desc {
-        color: white;
-        font-weight: 600;
-        font-size: 0.95rem;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    
-    @media (min-width: 640px) {
-        .status-desc {
-            font-size: 1rem;
-        }
+        height: 6px !important;
     }
 
-    /* Expander - Mobile Friendly */
+    /* Expander - Clean Look */
     .streamlit-expanderHeader {
         background: rgba(255, 255, 255, 0.03) !important;
-        border: 1px solid rgba(255, 255, 255, 0.05) !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
         border-radius: 14px !important;
-        color: rgba(255, 255, 255, 0.8) !important;
+        color: rgba(255, 255, 255, 0.7) !important;
         font-size: 0.85rem !important;
-        padding: 0.875rem !important;
-        min-height: 48px !important;
+        padding: 1rem !important;
+        transition: all 0.2s ease !important;
     }
     
-    @media (min-width: 640px) {
-        .streamlit-expanderHeader {
-            border-radius: 16px !important;
-            font-size: 0.9rem !important;
-            padding: 1rem !important;
-        }
+    .streamlit-expanderHeader:hover {
+        background: rgba(255, 255, 255, 0.05) !important;
+        border-color: rgba(255, 255, 255, 0.15) !important;
     }
     
     .streamlit-expanderContent {
         background: transparent !important;
         border: none !important;
-        padding-top: 0.875rem !important;
+        padding: 1rem 0.5rem 0.5rem !important;
     }
     
     /* Footer */
     .info-footer {
         text-align: center;
         margin-top: 3rem;
-        padding-top: 1.5rem;
+        padding-top: 2rem;
         border-top: 1px solid rgba(255, 255, 255, 0.08);
-        color: rgba(255, 255, 255, 0.25);
+        color: rgba(255, 255, 255, 0.2);
         font-size: 0.7rem;
         font-weight: 600;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
     }
     
-    @media (min-width: 640px) {
-        .info-footer {
-            margin-top: 4rem;
-            padding-top: 2rem;
-            font-size: 0.75rem;
-        }
-    }
-    
-    /* Error/Success Messages - Mobile Friendly */
+    /* Alerts */
     .stError, .stSuccess {
         border-radius: 14px !important;
-        padding: 0.875rem 1rem !important;
-        font-size: 0.9rem !important;
+        padding: 1rem !important;
+        border: none !important;
+        background: rgba(255, 255, 255, 0.03) !important;
+        border-left: 3px solid #ef4444 !important;
+    }
+    
+    .stSuccess {
+        border-left-color: #10b981 !important;
     }
 </style>
 """, unsafe_allow_html=True)
