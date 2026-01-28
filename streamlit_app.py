@@ -406,7 +406,7 @@ def run_automation(index, rollno, password, progress_bar, status_placeholder):
 # ----- UI LOGIC -----
 if not st.session_state.processing:
     # Input Form
-    rollno = st.text_input("Roll Number", placeholder="e.g. 25U201", help="College Roll Number")
+    rollno = st.text_input("Roll Number", placeholder="e.g. 29X201", help="College Roll Number")
     password = st.text_input("Password", type="password", placeholder="•••••••", help="eCampus Password")
     
     feedback_type = st.selectbox(
