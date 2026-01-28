@@ -466,6 +466,7 @@ else:
     
     if result == "Success":
         st.balloons()
+        
 
 # Footer
 st.markdown("<div class='footer'>SECURE • PRIVATE • EDUCATIONAL</div>", unsafe_allow_html=True)
